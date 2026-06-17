@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "lks-container-gatus-app",
-            "image": "task-def-image",
+            "image": "task-def-image-gatus",
             "cpu": 0,
             "portMappings": [
                 {

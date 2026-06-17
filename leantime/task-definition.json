@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "lks-container-leantime-app",
-            "image": "task-def-image",
+            "image": "task-def-image-leantime",
             "cpu": 0,
             "portMappings": [
                 {
