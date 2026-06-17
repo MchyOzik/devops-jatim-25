@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "lks-container-gatus-app",
-            "image": "",
+            "image": "IMAGE_FULL_URI",
             "cpu": 0,
             "portMappings": [
                 {
