@@ -31,6 +31,14 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Update Configuration
+        run: |
+          sed -i "s|<github-token>|$TOKEN|g" gatus/config/config.yaml
+          sed -i "s|<leantime-url>|$LEANTIME_URL|g" gatus/config/config.yaml
+          sed -i "s|<gatus-url>|$GATUS_URL|g" gatus/config/config.yaml
+          echo "Cofiguration updated."
+          cat gatus/config/config.yaml
+
       - name: Deploy Amazon ECS task definition 
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
@@ -59,13 +67,7 @@ jobs:
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "IMAGE_FULL_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
-      - name: Update Configuration
-        run: |
-          sed -i "s|<github-token>|$TOKEN|g" gatus/config/config.yaml
-          sed -i "s|<leantime-url>|$LEANTIME_URL|g" gatus/config/config.yaml
-          sed -i "s|<gatus-url>|$GATUS_URL|g" gatus/config/config.yaml
-          echo "Cofiguration updated."
-          cat gatus/config/config.yaml
+  
 
 
     
