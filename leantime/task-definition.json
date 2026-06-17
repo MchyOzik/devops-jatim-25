@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "lks-container-leantime-app",
-            "image": "task-def-image-leantime",
+            "image": "226335799265.dkr.ecr.us-east-1.amazonaws.com/lks-gatus",
             "cpu": 0,
             "portMappings": [
                 {
