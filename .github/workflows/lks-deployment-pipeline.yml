@@ -39,18 +39,22 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy Amazon ECS task definition Leantime
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ env.LEANTIME_TASK_DEFINITION }}
           service: ${{ env.ECS_LEANTIME_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
+          force-new-deployment: true
+          run-task-tags: '[{"key": "", "value": ""} , ...]'
 
       - name: Deploy Amazon ECS task definition Gatus
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ env.GATUS_TASK_DEFINITION }}
           service: ${{ env.ECS_GATUS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
+          force-new-deployment: true
+          run-task-tags: '[{"key": "", "value": ""} , ...]'
 
       - name: Update Configuration
         run: |
