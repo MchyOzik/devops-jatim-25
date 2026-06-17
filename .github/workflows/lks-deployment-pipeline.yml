@@ -12,14 +12,12 @@ env:
 
   ECS_LEANTIME_SERVICE: leantime-service
   LEANTIME_TASK_DEFINITION: lks-leantime-app
-  LEANTIME_URL: ${{ secrets.ALB_ENDPOINT }}
+  LEANTIME_URL: "??? ${{ secrets.ALB_ENDPOINT }} ???"
   ECS_GATUS_SERVICE: gatus-service
   GATUS_TASK_DEFINITION: lks-gatus-app
-  GATUS_URL: ${{ secrets.ALB_ENDPOINT }}
+  GATUS_URL: "??? ${{ secrets.ALB_ENDPOINT }} ???"
 # FILL THE MISSING VALUES ABOVE
 
-permissions:
-  contents: read
 
 jobs:
   deploy:
