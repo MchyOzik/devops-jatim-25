@@ -1,4 +1,4 @@
-name: Deploy Leantime
+name: Deploy App
 
 # FILL THE MISSING VALUES BELOW
 on:
