@@ -62,7 +62,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push image to Amazon ECR gatus
-        id: build-image
+        id: build-image-gatus
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
@@ -73,7 +73,7 @@ jobs:
           echo "IMAGE_FULL_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
       - name: Build, tag, and push image to Amazon ECR leantime
-        id: build-image
+        id: build-image-leantime
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
