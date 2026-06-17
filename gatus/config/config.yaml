@@ -1,6 +1,6 @@
 # FILL IN THE MISSING VALUES BELOW
 alerting:
-  ???:
+  github:
     token: "<github-token>" # WARN: DO NOT CHANGE THIS LINE
 # FILL IN THE MISSING VALUES ABOVE
 
@@ -8,10 +8,11 @@ alerting:
 endpoints:
   - name: Leantime
     url: <leantime-url> # WARN: DO NOT CHANGE THIS LINE
-    interval:
+    interval: 30s
     conditions:
+      - "[STATUS] == 200"
     alerts:
-      - type: ???
+      - type: github
         description: "Sensei, Leantime is down! Please check and fix it."
 
   - name: Gatus
