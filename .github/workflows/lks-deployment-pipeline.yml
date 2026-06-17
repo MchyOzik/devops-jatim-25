@@ -38,7 +38,7 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Deploy Amazon ECS task definition
+      - name: Deploy Amazon ECS task definition Leantime
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ env.LEANTIME_TASK_DEFINITION }}
@@ -47,9 +47,14 @@ jobs:
           force-new-deployment: true
           run-task-tags: '[{"key": "", "value": ""} , ...]'
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      - name: Deploy Amazon ECS task definition Gatus
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ env.GATUS_TASK_DEFINITION }}
+          service: ${{ env.ECS_GATUS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          force-new-deployment: true
+          run-task-tags: '[{"key": "", "value": ""} , ...]'
 
       - name: Update Configuration
         run: |
@@ -74,11 +79,4 @@ jobs:
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "IMAGE_FULL_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-        with:
-          task-definition: ${{ env.LEANTIME_TASK_DEFINITION }}
-          service: ${{ env.ECS_LEANTIME_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          force-new-deployment: true
-          run-task-tags: '[{"key": "", "value": ""} , ...]'
+    
