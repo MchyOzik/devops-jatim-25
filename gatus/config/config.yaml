@@ -16,9 +16,10 @@ endpoints:
 
   - name: Gatus
     url: <gatus-url> # WARN: DO NOT CHANGE THIS LINE
-    interval:
+    interval: 30s
     conditions:
+      - "[STATUS] == 200"
     alerts:
-      - type: ???
+      - type: github
         description: "Sensei, Gatus is down! Please check and fix it."
 # FILL IN THE MISSING VALUES BELOW
