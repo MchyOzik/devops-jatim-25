@@ -43,6 +43,10 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Get Short Commit Hash
+        run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        shell: bash
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
@@ -63,9 +67,7 @@ jobs:
           force-new-deployment: true
           run-task-tags: '[{"key": "", "value": ""} , ...]'
 
-      - name: Get Short Commit Hash
-        run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        shell: bash
+  
 
       
 
