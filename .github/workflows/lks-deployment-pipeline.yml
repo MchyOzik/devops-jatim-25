@@ -14,7 +14,7 @@ env:
   LEANTIME_TASK_DEFINITION: ./leantime/task-definition.json
   LEANTIME_URL: "??? ${{ secrets.ALB_ENDPOINT }} ???"
   ECS_GATUS_SERVICE: gatus-service
-  GATUS_TASK_DEFINITION: ./gatus/tesk-definition.json
+  GATUS_TASK_DEFINITION: ./gatus/task-definition.json
   GATUS_URL: "??? ${{ secrets.ALB_ENDPOINT }} ???"
 
 
