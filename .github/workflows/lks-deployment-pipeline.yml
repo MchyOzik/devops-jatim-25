@@ -1,17 +1,20 @@
-name: Example Gatus' Job (1/2) - Build Gatus
+name: Deploy Leantime
 
 # FILL THE MISSING VALUES BELOW
 on:
   workflow_dispatch:
 
 env:
-  AWS_REGION:
-  ECR_REPOSITORY:
-  ECS_CLUSTER:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: lks-gatus
+  ECS_CLUSTER: lks-oss-clusters
   TOKEN: ${{ secrets.TOKEN }}
 
-  ECS_GATUS_SERVICE:
-  GATUS_TASK_DEFINITION:
+  ECS_LEANTIME_SERVICE: leantime-service
+  LEANTIME_TASK_DEFINITION: lks-leantime-app
+  LEANTIME_URL: "??? ${{ secrets.ALB_ENDPOINT }} ???"
+  ECS_GATUS_SERVICE: gatus-service
+  GATUS_TASK_DEFINITION: lks-gatus-app
   GATUS_URL: "??? ${{ secrets.ALB_ENDPOINT }} ???"
 # FILL THE MISSING VALUES ABOVE
 
@@ -20,7 +23,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy Gatus App
+    name: Deploy Leantime App
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -34,6 +37,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ env.LEANTIME_TASK_DEFINITION }}
+          service: ${{ env.ECS_LEANTIME_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          force-new-deployment: true
+          run-task-tags: '[{"key": "", "value": ""} , ...]'
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -61,3 +73,12 @@ jobs:
           docker push --all-tags $ECR_REGISTRY/$ECR_REPOSITORY
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           echo "IMAGE_FULL_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ env.LEANTIME_TASK_DEFINITION }}
+          service: ${{ env.ECS_LEANTIME_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          force-new-deployment: true
+          run-task-tags: '[{"key": "", "value": ""} , ...]'

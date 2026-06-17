@@ -1,44 +1,51 @@
 {
-  // FILL IN THE MISSING VALUES BELOW
-  "family": "",
-  "taskRoleArn": "",
-  "executionRoleArn": "",
-  "networkMode": "",
-  "volumes": [],
-  "placementConstraints": [],
-  "requiresCompatibilities": ???,
-  "cpu": "",
-  "memory": "",
-  // FILL IN THE MISSING VALUES ABOVE
-
-  "runtimePlatform": {
-    "cpuArchitecture": "X86_64",
-    "operatingSystemFamily": "LINUX"
-  },
-  "enableFaultInjection": false,
-  "containerDefinitions": [
-    {
-      "name": "gatus",
-      "image": "<task-def-image>", // WARN: REMOVE THIS COMMENT AND DO NOT CHANGE THIS LINE
-      "cpu": 0,
-      "essential": true,
-      "volumesFrom": [],
-      "systemControls": [],
-
-      // FILL IN THE MISSING VALUES BELOW
-      "portMappings": [],
-      "logConfiguration": {
-        "logDriver": "???",
-        "options": {
-          "awslogs-group": "???",
-          "awslogs-region": "???",
-          "mode": "non-blocking",
-          "awslogs-create-group": "true",
-          "max-buffer-size": "25m",
-          "awslogs-stream-prefix": "ecs"
+    "containerDefinitions": [
+        {
+            "name": "lks-container-gatus-app",
+            "image": "IMAGE_URI",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "name": "lks-container-gatus-app-8080-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/lks-gatus-app",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
         }
-      }
-      // FILL IN THE MISSING VALUES ABOVE
-    }
-  ]
+    ],
+    "family": "lks-gatus-app",
+    "taskRoleArn": "arn:aws:iam::226335799265:role/LabRole",
+    "executionRoleArn": "arn:aws:iam::226335799265:role/LabRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "enableFaultInjection": false
 }

@@ -1,48 +1,126 @@
 {
-  // FILL IN THE MISSING VALUES BELOW
-  "family": "",
-  "taskRoleArn": "",
-  "executionRoleArn": "",
-  "networkMode": "",
-  "requiresCompatibilities": ???,
-  "cpu": "",
-  "memory": "",
-  "volumes": [],
-  // FILL IN THE MISSING VALUES ABOVE
-
-  "placementConstraints": [],
-  "runtimePlatform": {
-    "cpuArchitecture": "X86_64",
-    "operatingSystemFamily": "LINUX"
-  },
-  "enableFaultInjection": false,
-
-  "containerDefinitions": [
-    {
-      "name": "leantime",
-      "image": "leantime/leantime:latest",
-      "cpu": 0,
-      "essential": true,
-      "volumesFrom": [],
-      "systemControls": [],
-
-      // FILL IN THE MISSING VALUES BELOW
-      "portMappings": [],
-      "secrets": [],
-      "environment": [],
-      "mountPoints": [],
-      "logConfiguration": {
-        "logDriver": "???",
-        "options": {
-          "awslogs-group": "???",
-          "awslogs-region": "???",
-          "mode": "non-blocking",
-          "awslogs-create-group": "true",
-          "max-buffer-size": "25m",
-          "awslogs-stream-prefix": "ecs"
+    "containerDefinitions": [
+        {
+            "name": "lks-container-leantime-app",
+            "image": "IMAGE_URI",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "name": "lks-container-leantime-app-8080-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "lks-vol-public-user",
+                    "containerPath": "/var/www/html/public/userfiles",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "lks-vol-userfiles",
+                    "containerPath": "/var/www/html/userfiles",
+                    "readOnly": false
+                },
+                {
+                    "sourceVolume": "lks-vol-plugins",
+                    "containerPath": "/var/www/html/app/Plugins",
+                    "readOnly": false
+                }
+            ],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "LEAN_DB_DATABASE",
+                    "valueFrom": "/lks/db/name"
+                },
+                {
+                    "name": "LEAN_DB_HOST",
+                    "valueFrom": "/lks/db/host"
+                },
+                {
+                    "name": "LEAN_DB_PASSWORD",
+                    "valueFrom": "/lks/db/password"
+                },
+                {
+                    "name": "LEAN_DB_PORT",
+                    "valueFrom": "/lks/db/port"
+                },
+                {
+                    "name": "LEAN_DB_USER",
+                    "valueFrom": "/lks/db/username"
+                }
+            ],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/lks-leantime-app",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
         }
-      }
-      // FILL IN THE MISSING VALUES ABOVE
-    }
-  ]
+    ],
+    "family": "lks-leantime-app",
+    "taskRoleArn": "arn:aws:iam::226335799265:role/LabRole",
+    "executionRoleArn": "arn:aws:iam::226335799265:role/LabRole",
+    "networkMode": "awsvpc",
+    "volumes": [
+        {
+            "name": "lks-vol-public-user",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0114f73f54c4f1c5a",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-0bc7036949b5f4429",
+                    "iam": "ENABLED"
+                }
+            }
+        },
+        {
+            "name": "lks-vol-userfiles",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0114f73f54c4f1c5a",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-00cfeda4f0de17d70",
+                    "iam": "ENABLED"
+                }
+            }
+        },
+        {
+            "name": "lks-vol-plugins",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0114f73f54c4f1c5a",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-04aaa89d686faef08",
+                    "iam": "ENABLED"
+                }
+            }
+        }
+    ],
+    "placementConstraints": [],
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "512",
+    "memory": "1024",
+    "enableFaultInjection": false
 }
