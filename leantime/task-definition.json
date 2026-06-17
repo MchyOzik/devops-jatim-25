@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "lks-container-leantime-app",
-            "image": "leatime/leantime:latest",
+            "image": "IMAGE_FULL_URI",
             "cpu": 0,
             "portMappings": [
                 {
