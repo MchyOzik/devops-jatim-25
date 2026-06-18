@@ -14,21 +14,50 @@
                 }
             ],
             "essential": true,
-            "environment": [],
+            "environment": [
+                {
+                    "name": "LEAN_APP_URL",
+                    "value": "http://lks-oss-lb-905921912.us-east-1.elb.amazonaws.com"
+                },
+                {
+                    "name": "LEAN_LOG_PATH",
+                    "value": "/logs/error.log"
+                },
+                {
+                    "name": "LEAN_DEBUG",
+                    "value": "0"
+                },
+                {
+                    "name": "LEAN_LANGUAGE",
+                    "value": "us-east-1"
+                },
+                {
+                    "name": "LEAN_DEFAULT_TIMEZONE",
+                    "value": "Asia/Jakarta"
+                },
+                {
+                    "name": "LEAN_APP_DIR",
+                    "value": "/leantime"
+                },
+                {
+                    "name": "LEAN_DISABLE_LOGIN_FORM",
+                    "value": "false"
+                }
+            ],
             "environmentFiles": [],
             "mountPoints": [
                 {
-                    "sourceVolume": "lks-vol-public-user",
+                    "sourceVolume": "public-userfiles",
                     "containerPath": "/var/www/html/public/userfiles",
                     "readOnly": false
                 },
                 {
-                    "sourceVolume": "lks-vol-userfiles",
+                    "sourceVolume": "userfiles",
                     "containerPath": "/var/www/html/userfiles",
                     "readOnly": false
                 },
                 {
-                    "sourceVolume": "lks-vol-plugins",
+                    "sourceVolume": "plugins",
                     "containerPath": "/var/www/html/app/Plugins",
                     "readOnly": false
                 }
@@ -36,24 +65,24 @@
             "volumesFrom": [],
             "secrets": [
                 {
-                    "name": "LEAN_DB_DATABASE",
-                    "valueFrom": "/lks/db/name"
-                },
-                {
                     "name": "LEAN_DB_HOST",
                     "valueFrom": "/lks/db/host"
+                },
+                {
+                    "name": "LEAN_DB_USER",
+                    "valueFrom": "/lks/db/username"
                 },
                 {
                     "name": "LEAN_DB_PASSWORD",
                     "valueFrom": "/lks/db/password"
                 },
                 {
-                    "name": "LEAN_DB_PORT",
-                    "valueFrom": "/lks/db/port"
+                    "name": "LEAN_DB_DATABASE",
+                    "valueFrom": "/lks/db/name"
                 },
                 {
-                    "name": "LEAN_DB_USER",
-                    "valueFrom": "/lks/db/username"
+                    "name": "LEAN_DB_PORT",
+                    "valueFrom": "/lks/db/port"
                 }
             ],
             "ulimits": [],
@@ -71,42 +100,42 @@
         }
     ],
     "family": "lks-leantime-app",
-    "taskRoleArn": "arn:aws:iam::226335799265:role/LabRole",
-    "executionRoleArn": "arn:aws:iam::226335799265:role/LabRole",
+    "taskRoleArn": "arn:aws:iam::214365501455:role/LabRole",
+    "executionRoleArn": "arn:aws:iam::214365501455:role/LabRole",
     "networkMode": "awsvpc",
     "volumes": [
         {
-            "name": "lks-vol-public-user",
+            "name": "public-userfiles",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-0114f73f54c4f1c5a",
+                "fileSystemId": "fs-04b7390bbf2149fd4",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-0bc7036949b5f4429",
+                    "accessPointId": "fsap-088d97b9b9a5abb6c",
                     "iam": "ENABLED"
                 }
             }
         },
         {
-            "name": "lks-vol-userfiles",
+            "name": "userfiles",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-0114f73f54c4f1c5a",
+                "fileSystemId": "fs-04b7390bbf2149fd4",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-00cfeda4f0de17d70",
+                    "accessPointId": "fsap-0772c6b504b8b3697",
                     "iam": "ENABLED"
                 }
             }
         },
         {
-            "name": "lks-vol-plugins",
+            "name": "plugins",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-0114f73f54c4f1c5a",
+                "fileSystemId": "fs-04b7390bbf2149fd4",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-04aaa89d686faef08",
+                    "accessPointId": "fsap-03e83d5f16e838195",
                     "iam": "ENABLED"
                 }
             }
@@ -120,7 +149,7 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "512",
-    "memory": "1024",
+    "cpu": "1024",
+    "memory": "2048",
     "enableFaultInjection": false
 }
