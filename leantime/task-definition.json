@@ -64,24 +64,24 @@
             "volumesFrom": [],
             "secrets": [
                 {
-                    "name": "LEAN_DB_HOST",
-                    "valueFrom": "/lks/db/host"
+                    "name": "LEAN_DB_DATABASE",
+                    "valueFrom": "/lks/db/name"
                 },
                 {
-                    "name": "LEAN_DB_USER",
-                    "valueFrom": "/lks/db/username"
+                    "name": "LEAN_DB_HOST",
+                    "valueFrom": "/lks/db/host"
                 },
                 {
                     "name": "LEAN_DB_PASSWORD",
                     "valueFrom": "/lks/db/password"
                 },
                 {
-                    "name": "LEAN_DB_DATABASE",
-                    "valueFrom": "/lks/db/name"
-                },
-                {
                     "name": "LEAN_DB_PORT",
                     "valueFrom": "/lks/db/port"
+                },
+                {
+                    "name": "LEAN_DB_USER",
+                    "valueFrom": "/lks/db/username"
                 }
             ],
             "logConfiguration": {
@@ -91,7 +91,8 @@
                     "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                }
+                },
+                "secretOptions": []
             },
             "systemControls": []
         }
@@ -104,11 +105,11 @@
         {
             "name": "public-userfiles",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-04b7390bbf2149fd4",
+                "fileSystemId": "fs-0632cea44181d6297",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-088d97b9b9a5abb6c",
+                    "accessPointId": "fsap-030c22f7f594e07a4",
                     "iam": "ENABLED"
                 }
             }
@@ -116,11 +117,11 @@
         {
             "name": "userfiles",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-04b7390bbf2149fd4",
+                "fileSystemId": "fs-0632cea44181d6297",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-0772c6b504b8b3697",
+                    "accessPointId": "fsap-04d65e9c4f9576882",
                     "iam": "ENABLED"
                 }
             }
@@ -128,11 +129,11 @@
         {
             "name": "plugins",
             "efsVolumeConfiguration": {
-                "fileSystemId": "fs-04b7390bbf2149fd4",
+                "fileSystemId": "fs-0632cea44181d6297",
                 "rootDirectory": "/",
                 "transitEncryption": "ENABLED",
                 "authorizationConfig": {
-                    "accessPointId": "fsap-03e83d5f16e838195",
+                    "accessPointId": "fsap-053bc6e8e3ddbfa22",
                     "iam": "ENABLED"
                 }
             }
