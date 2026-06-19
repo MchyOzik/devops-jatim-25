@@ -1,4 +1,4 @@
-name: Deploy App Leantime
+name: Deploy App Leantimes
 
 on:
   workflow_dispatch:
