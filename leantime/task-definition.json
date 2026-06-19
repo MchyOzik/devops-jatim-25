@@ -44,7 +44,6 @@
                     "value": "false"
                 }
             ],
-            "environmentFiles": [],
             "mountPoints": [
                 {
                     "sourceVolume": "public-userfiles",
@@ -85,7 +84,6 @@
                     "valueFrom": "/lks/db/port"
                 }
             ],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -93,8 +91,7 @@
                     "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
-                },
-                "secretOptions": []
+                }
             },
             "systemControls": []
         }
